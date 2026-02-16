@@ -1,0 +1,9 @@
+order_id,date,customer,sku,qty,unit_price_usd,region
+1001,2026-02-01,Acme,SKU-1,2,19.99,NA
+1002,2026-02-01,Acme,SKU-2,1,120.00,NA
+1003,2026-02-02,Globex,SKU-1,5,19.99,EU
+1004,2026-02-02,Initech,SKU-9,1,999.99,NA
+1005,2026-02-03,Initech,SKU-1,0,19.99,NA
+1006,2026-02-03,Umbrella,SKU-3,3,-5.00,APAC
+1007,2026-02-04,Umbrella,SKU-3,3,5.00,APAC
+1008,2026-02-04,Acme,SKU-1,100,0.99,NA
