@@ -1,0 +1,4 @@
+2026-02-15T10:12:30Z INFO auth User logged in
+2026-02-15T10:12:31Z INFO auth Session refreshed
+2026-02-15T10:12:32Z WARN auth Suspicious login attempt
+2026-02-15T10:12:33Z ERROR db Connection failed

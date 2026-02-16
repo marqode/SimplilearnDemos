@@ -1,0 +1,4 @@
+2026-02-15T10:14:01Z INFO payments Charge created
+2026-02-15T10:14:02Z INFO payments Charge captured
+2026-02-15T10:14:03Z ERROR payments Charge failed: insufficient funds
+2026-02-15T10:14:04Z INFO api GET /health 200
