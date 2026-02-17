@@ -11,13 +11,18 @@ def iter_log_lines(paths: Iterable[str]) -> Iterable[tuple[str, str]]:
     - Skips blank lines
     - Skips comment lines starting with '#'
     """
+    for path in _expand_paths(paths):
+        with path.open("r", encoding="utf-8") as f:
+            for line in f:
+                yield (str(path), line.rstrip("\n"))
+
+def _expand_paths(paths: Iterable[str]) -> list[Path]:
+    expanded: list[Path] = []
     for p in paths:
         path = Path(p)
-        with path.open("r", encoding="utf-8") as f:
-            for raw in f:
-                line = raw.strip("\n")
-                if not line.strip():
-                    continue
-                if line.lstrip().startswith("#"):
-                    continue
-                yield (str(path), line)
+        if path.is_dir():
+            expanded.extend(sorted(path.glob("*.log")))
+        else:
+            expanded.append(path)
+    return expanded
+

@@ -25,18 +25,17 @@ def parse_line(source: str, line: str) -> Optional[LogEvent]:
 
     Returns None for lines that don't match expectations.
     """
-    parts = line.split(" ", 2)  # <-- BUG: should preserve component separately
-    if len(parts) < 3:
+    parts = line.split(" ", 3)
+    if len(parts) < 4:
         return None
 
-    timestamp, level, rest = parts[0], parts[1], parts[2]
+    timestamp, level, component, message = parts[0], parts[1], parts[2], parts[3]
     level = level.upper()
     if level not in VALID_LEVELS:
         return None
 
-    # BUG: 'rest' still contains "<component> <message...>" but we treat it all as message
-    component = "unknown"
-    message = rest.strip()
+    component = component.strip()
+    message = message.strip()
 
     return LogEvent(
         timestamp=timestamp,

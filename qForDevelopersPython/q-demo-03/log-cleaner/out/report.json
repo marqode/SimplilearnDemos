@@ -1,0 +1,38 @@
+{
+  "error_examples": [
+    {
+      "component": "db",
+      "message": "Connection failed",
+      "source": "sample-data/app1.log",
+      "timestamp": "2026-02-15T10:12:33Z"
+    },
+    {
+      "component": "payments",
+      "message": "Charge failed: insufficient funds",
+      "source": "sample-data/app2.log",
+      "timestamp": "2026-02-15T10:14:03Z"
+    }
+  ],
+  "first_event": {
+    "component": "auth",
+    "level": "INFO",
+    "message": "User logged in",
+    "source": "sample-data/app1.log",
+    "timestamp": "2026-02-15T10:12:30Z"
+  },
+  "summary": {
+    "components": {
+      "api": 1,
+      "auth": 3,
+      "db": 1,
+      "payments": 3
+    },
+    "levels": {
+      "ERROR": 2,
+      "INFO": 5,
+      "WARN": 1
+    },
+    "skipped_lines": 0,
+    "total_events": 8
+  }
+}
