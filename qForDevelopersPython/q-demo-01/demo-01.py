@@ -5,7 +5,7 @@ s3 = boto3.client("s3")
 
 def process_orders(event):
     results = []
-    total = 0  # BUG: total should be reset per order
+    total = 0
 
     for record in event.get("records", []):
         try:
