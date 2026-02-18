@@ -1,49 +1,39 @@
 import json
-import logging
-from typing import Dict, List, Any
-
 import boto3
 
-logger = logging.getLogger(__name__)
 s3 = boto3.client("s3")
 
-FLAG_THRESHOLD = 1000
-
-
-def calculate_order_total(items: List[Dict[str, Any]]) -> float:
-    """Calculate total price for order items."""
-    return sum(item["price"] * item["quantity"] for item in items)
-
-
-def get_order_from_s3(bucket: str, key: str) -> Dict[str, Any]:
-    """Retrieve and parse order data from S3."""
-    response = s3.get_object(Bucket=bucket, Key=key)
-    body = response["Body"].read().decode("utf-8")
-    return json.loads(body)
-
-
-def process_single_order(record: Dict[str, str]) -> Dict[str, Any]:
-    """Process a single order record."""
-    order_id = record["order_id"]
-    order = get_order_from_s3(record["bucket"], record["key"])
-    total = calculate_order_total(order["items"])
-    
-    return {
-        "order_id": order_id,
-        "status": "FLAGGED" if total > FLAG_THRESHOLD else "OK",
-        "total": total
-    }
-
-
-def process_orders(event: Dict[str, Any]) -> List[Dict[str, Any]]:
-    """Process multiple order records from event."""
+def process_orders(event):
     results = []
-    
+    total = 0  # BUG: total should be reset per order
+
     for record in event.get("records", []):
         try:
-            result = process_single_order(record)
-            results.append(result)
+            order_id = record["order_id"]
+            bucket = record["bucket"]
+            key = record["key"]
+
+            response = s3.get_object(Bucket=bucket, Key=key)
+            body = response["Body"].read().decode("utf-8")
+            order = json.loads(body)
+
+            for item in order["items"]:
+                total += item["price"] * item["quantity"]
+
+            if total > 1000:
+                results.append({
+                    "order_id": order_id,
+                    "status": "FLAGGED",
+                    "total": total
+                })
+            else:
+                results.append({
+                    "order_id": order_id,
+                    "status": "OK",
+                    "total": total
+                })
+
         except Exception as e:
-            logger.error(f"Error processing order {record.get('order_id', 'unknown')}: {e}")
-    
+            print("Error processing order", e)
+
     return results
