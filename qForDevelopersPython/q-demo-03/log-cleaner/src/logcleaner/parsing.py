@@ -25,7 +25,7 @@ def parse_line(source: str, line: str) -> Optional[LogEvent]:
 
     Returns None for lines that don't match expectations.
     """
-    parts = line.split(" ", 2)  # <-- BUG: should preserve component separately
+    parts = line.split(" ", 2)
     if len(parts) < 3:
         return None
 
