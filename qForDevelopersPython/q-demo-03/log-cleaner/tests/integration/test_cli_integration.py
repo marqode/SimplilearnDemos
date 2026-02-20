@@ -12,8 +12,8 @@ def test_cli_outputs_valid_json(tmp_path: Path):
         sys.executable,
         "-m",
         "logcleaner.cli",
-        "sample_data/app1.log",
-        "sample_data/app2.log",
+        "sample-data/app1.log",
+        "sample-data/app2.log",
         "--out",
         str(out_file),
     ]
