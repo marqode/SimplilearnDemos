@@ -8,7 +8,7 @@ import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CliIT {
+public class CliIntegrationTest {
 
     @TempDir
     Path tmp;
