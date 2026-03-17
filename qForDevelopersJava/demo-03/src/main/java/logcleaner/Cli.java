@@ -37,11 +37,9 @@ public final class Cli {
             IoUtils.writeString(outFile, report.toJson());
 
             System.out.println("Wrote report to: " + outFile.toAbsolutePath());
-            System.exit(0);
 
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
-            System.exit(1);
         }
     }
 }
