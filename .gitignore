@@ -38,3 +38,5 @@ htmlcov/
 
 # --- OS / misc ---
 Thumbs.db
+
+target/
